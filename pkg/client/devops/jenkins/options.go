@@ -32,6 +32,7 @@ type Options struct {
 	Namespace       string        `json:"namespace,omitempty" yaml:"namespace"`
 	WorkerNamespace string        `json:"workerNamespace,omitempty" yaml:"workerNamespace"`
 	ReloadCasCDelay time.Duration `json:"reloadCasCDelay,omitempty" yaml:"reloadCasCDelay"`
+	Endpoint        string        `json:"endpoint,omitempty" yaml:"endpoint" description:"The endpoint of the ks-devops apiserver"`
 }
 
 // NewJenkinsOptions returns a `zero` instance
