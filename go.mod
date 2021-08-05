@@ -20,8 +20,7 @@ require (
 	github.com/go-openapi/spec v0.19.3
 	github.com/go-redis/redis v6.15.2+incompatible
 	github.com/golang/example v0.0.0-20170904185048-46695d81d1fa
-	github.com/golang/mock v1.3.1
-	github.com/google/go-cmp v0.5.5
+	github.com/google/go-cmp v0.5.2
 	github.com/google/go-querystring v1.1.0 // indirect
 	github.com/kubesphere/sonargo v0.0.2
 	github.com/onsi/ginkgo v1.14.2
@@ -57,12 +56,16 @@ replace (
 	github.com/fatih/structs => github.com/fatih/structs v1.1.0
 	github.com/go-redis/redis => github.com/go-redis/redis v6.15.2+incompatible
 	github.com/golang/example => github.com/golang/example v0.0.0-20170904185048-46695d81d1fa
+	github.com/golang/mock => github.com/golang/mock v1.4.3
+	github.com/google/go-cmp => github.com/google/go-cmp v0.4.0
 	github.com/googleapis/gnostic => github.com/googleapis/gnostic v0.4.0
 	github.com/kubesphere/sonargo => github.com/kubesphere/sonargo v0.0.2
+	github.com/spf13/viper => github.com/spf13/viper v1.4.0
 	k8s.io/api => k8s.io/api v0.18.6
 	k8s.io/apiserver => k8s.io/apiserver v0.18.6
 	k8s.io/client-go => k8s.io/client-go v0.18.6
 	k8s.io/component-base => k8s.io/component-base v0.18.6
+	k8s.io/klog/v2 => k8s.io/klog/v2 v2.0.0
 	k8s.io/kube-openapi => k8s.io/kube-openapi v0.0.0-20200410145947-61e04a5be9a6
 	sigs.k8s.io/application => sigs.k8s.io/application v0.8.4-0.20201016185654-c8e2959e57a0
 )
