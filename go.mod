@@ -11,7 +11,7 @@ require (
 	github.com/davecgh/go-spew v1.1.1
 	github.com/deckarep/golang-set v1.7.1 // indirect
 	github.com/docker/docker v0.7.3-0.20190327010347-be7ac8be2ae0
-	github.com/emicklei/go-restful v2.9.6+incompatible
+	github.com/emicklei/go-restful v2.14.3+incompatible
 	github.com/emicklei/go-restful-openapi v1.4.1
 	github.com/fatih/structs v1.1.0
 	github.com/form3tech-oss/jwt-go v3.2.2+incompatible
