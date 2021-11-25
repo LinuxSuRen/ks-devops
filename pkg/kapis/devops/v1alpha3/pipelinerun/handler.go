@@ -3,6 +3,7 @@ package pipelinerun
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -132,12 +133,21 @@ func (h *apiHandler) createPipelineRun(request *restful.Request, response *restf
 
 	// create PipelineRun
 	pr := CreatePipelineRun(&pipeline, &payload, scm)
+
+	//
+	setTokenFromUsers(request, &pipeline)
+
 	if err := h.client.Create(context.Background(), pr); err != nil {
 		api.HandleError(request, response, err)
 		return
 	}
 
 	_ = response.WriteEntity(pr)
+}
+
+func setTokenFromUsers(request *restful.Request, pipeline *v1alpha3.Pipeline) {
+	auth := request.HeaderParameter("Authorization")
+	fmt.Println(auth)
 }
 
 func (h *apiHandler) getPipelineRun(request *restful.Request, response *restful.Response) {
