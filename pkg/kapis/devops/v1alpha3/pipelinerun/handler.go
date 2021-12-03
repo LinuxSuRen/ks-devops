@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"strconv"
+	"strings"
 
 	"github.com/emicklei/go-restful"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
@@ -198,4 +199,52 @@ func (h *apiHandler) getNodeDetails(request *restful.Request, response *restful.
 	}
 
 	_ = response.WriteEntity(&stages)
+}
+
+type jenkinsEvent struct {
+	JobName        string `json:"jobName"`
+	MultiBranchJob bool   `json:"multiBranchJob"`
+	BuildNumber    int    `json:"buildNumber"`
+}
+
+func (h *apiHandler) jenkinsEventHanlder(request *restful.Request, response *restful.Response) {
+	event, _ := request.BodyParameter("event")
+	if event == "" {
+		return
+	}
+
+	jenkinsEvent := &jenkinsEvent{}
+	err := json.Unmarshal([]byte(event), jenkinsEvent)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	if jenkinsEvent.MultiBranchJob {
+		nsAndName := strings.Split(jenkinsEvent.JobName, "/")
+		if len(nsAndName) != 3 {
+			return
+		}
+	} else {
+		nsAndName := strings.Split(jenkinsEvent.JobName, "/")
+		if len(nsAndName) != 2 {
+			return
+		}
+
+		ns, name := nsAndName[0], nsAndName[1]
+
+		pipeline := &v1alpha3.Pipeline{}
+		err = h.client.Get(context.TODO(), client.ObjectKey{Namespace: ns, Name: name}, pipeline)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+
+		pipelineRun := CreatePipelineRun(pipeline, nil, nil)
+		err = h.client.Create(context.TODO(), pipelineRun)
+		if err != nil {
+			fmt.Println(err)
+		}
+	}
+	fmt.Println(event)
 }

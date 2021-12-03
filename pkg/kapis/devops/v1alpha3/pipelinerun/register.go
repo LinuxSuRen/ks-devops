@@ -18,6 +18,8 @@ func RegisterRoutes(ws *restful.WebService, c client.Client) {
 		client: c,
 	})
 
+	ws.Route(ws.POST("/devops/jenkins/event_handler").To(handler.jenkinsEventHanlder))
+
 	ws.Route(ws.GET("/namespaces/{namespace}/pipelines/{pipeline}/pipelineruns").
 		To(handler.listPipelineRuns).
 		Doc("Get all runs of the specified pipeline").
