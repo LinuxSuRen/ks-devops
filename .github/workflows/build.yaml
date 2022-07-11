@@ -134,6 +134,7 @@ jobs:
           ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
+          trivyignores: .github/workflows/.trivyignore
 
   BuildAPIServer:
     runs-on: ubuntu-20.04
@@ -227,6 +228,7 @@ jobs:
           ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
+          trivyignores: .github/workflows/.trivyignore
 
   BuildTools:
     runs-on: ubuntu-20.04
@@ -320,6 +322,7 @@ jobs:
           ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
+          trivyignores: .github/workflows/.trivyignore
 
   UnitTest:
     name: Test
