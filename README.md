@@ -10,7 +10,7 @@ including Binary-to-Image (B2I) and Source-to-Image (S2I), and boosts continuous
 With the container orchestration capability of Kubernetes, KubeSphere DevOps scales Jenkins Agents dynamically, improves 
 CI/CD workflow efficiency, and helps organizations accelerate the time to market for their products.
 
-## Features
+## Features8
 
 * Out-of-the-Box CI/CD Pipelines
 * Built-in Automation Toolkits for DevOps with Kubernetes
