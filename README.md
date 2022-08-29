@@ -29,7 +29,7 @@ CI/CD workflow efficiency, and helps organizations accelerate the time to market
 
 - Enable DevOps application
 
-  ```bash
+  ```bash1
   kubectl patch -nkubesphere-system cc ks-installer --type=json -p='[{"op": "replace", "path": "/spec/devops/enabled", "value": true}]'
   ```
 For more information, refer to the [documentation](docs).
