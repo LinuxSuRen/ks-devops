@@ -186,8 +186,8 @@ func TestSCMWebhook(t *testing.T) {
 	defaultPipeline.SetName("fake")
 	defaultPipeline.SetNamespace("default")
 	defaultPipeline.SetAnnotations(map[string]string{
-		scmRefAnnotationKey: `["master"]`,
-		scmAnnotationKey:    "https://gitlab.com/linuxsuren/test",
+		SCMRefAnnotationKey: `["master"]`,
+		SCMAnnotationKey:    "https://gitlab.com/linuxsuren/test",
 	})
 
 	type args struct {

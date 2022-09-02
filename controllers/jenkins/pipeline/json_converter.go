@@ -19,10 +19,12 @@ package pipeline
 import (
 	"context"
 	"fmt"
+	"kubesphere.io/devops/pkg/kapis/devops/v1alpha3/webhook"
 	"time"
 
 	"github.com/go-logr/logr"
 	"github.com/jenkins-zh/jenkins-client/pkg/core"
+	jsonPip "github.com/jenkins-zh/jenkins-client/pkg/pipeline"
 	"k8s.io/apiserver/pkg/authentication/user"
 	"k8s.io/client-go/tools/record"
 	v1alpha3 "kubesphere.io/devops/pkg/api/devops/v1alpha3"
@@ -113,6 +115,15 @@ func (r *JenkinsfileReconciler) reconcileJSONEditMode(pip *v1alpha3.Pipeline, co
 			return
 		}
 
+		var gits []jsonPip.GitRepo
+		if gits, err = jsonPip.FindGit(jsonData); err != nil {
+			err = fmt.Errorf("failed to find git repos from Jenkinsfile, error: %v", err)
+			return
+		}
+
+		gitRepos := jsonPip.GitRepos(gits)
+		pip.Annotations[webhook.SCMAnnotationKey] = gitRepos.GetURLs()
+		pip.Annotations[webhook.SCMRefAnnotationKey] = gitRepos.GetBranchesAsJSONString()
 		pip.Annotations[v1alpha3.PipelineJenkinsfileEditModeAnnoKey] = ""
 		pip.Spec.Pipeline.Jenkinsfile = toResult.GetResult()
 		err = r.Update(context.Background(), pip)

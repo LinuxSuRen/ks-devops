@@ -107,7 +107,7 @@ func Test_branchMatch(t *testing.T) {
 			pipeline: v1alpha3.Pipeline{
 				ObjectMeta: v1.ObjectMeta{
 					Annotations: map[string]string{
-						scmRefAnnotationKey: `["master", "good"]`,
+						SCMRefAnnotationKey: `["master", "good"]`,
 					},
 				},
 			},
@@ -120,7 +120,7 @@ func Test_branchMatch(t *testing.T) {
 			pipeline: v1alpha3.Pipeline{
 				ObjectMeta: v1.ObjectMeta{
 					Annotations: map[string]string{
-						scmRefAnnotationKey: `["feat-.*", "good"]`,
+						SCMRefAnnotationKey: `["feat-.*", "good"]`,
 					},
 				},
 			},

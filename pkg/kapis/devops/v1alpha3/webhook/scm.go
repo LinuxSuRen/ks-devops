@@ -39,11 +39,15 @@ import (
 	"time"
 )
 
-// tokenExpireIn indicates that the temporary token issued by controller will be expired in some time.
-const tokenExpireIn time.Duration = 5 * time.Minute
-const scmAnnotationKey = "scm.devops.kubesphere.io"
-const scmRefAnnotationKey = "scm.devops.kubesphere.io/ref"
-const triggerAnnotationKey = "devops.kubesphere.io/trigger"
+const (
+	// tokenExpireIn indicates that the temporary token issued by controller will be expired in some time.
+	tokenExpireIn time.Duration = 5 * time.Minute
+	// SCMAnnotationKey is the annotation key of SCM address
+	SCMAnnotationKey = "scm.devops.kubesphere.io"
+	// SCMRefAnnotationKey is the annotation key of the SCM reference
+	SCMRefAnnotationKey  = "scm.devops.kubesphere.io/ref"
+	triggerAnnotationKey = "devops.kubesphere.io/trigger"
+)
 
 // SCMHandler handles requests from webhooks.
 type SCMHandler struct {
@@ -106,7 +110,7 @@ func (h *SCMHandler) scmWebhook(request *restful.Request, response *restful.Resp
 				}
 				found = true
 
-				gitURL := pipeline.GetAnnotations()[scmAnnotationKey]
+				gitURL := pipeline.GetAnnotations()[SCMAnnotationKey]
 				if pipeline.IsMultiBranch() {
 					gitURL = pipeline.Spec.MultiBranchPipeline.GetGitURL()
 					if gitURL != "" && gitRepoMatch(gitURL, repo.Link, repo.Clone, repo.CloneSSH) {
@@ -166,7 +170,7 @@ func scanJenkinsMultiBranchPipeline(pipeline v1alpha3.Pipeline, jenkins core.Jen
 // branchMatch matches the branch rules from annotation.
 // It supports regexp pattern, or returns true if no annotation found
 func branchMatch(pipeline v1alpha3.Pipeline, branch string) (ok bool) {
-	branchRules := pipeline.Annotations[scmRefAnnotationKey]
+	branchRules := pipeline.Annotations[SCMRefAnnotationKey]
 	if branchRules == "" {
 		ok = true
 		return
